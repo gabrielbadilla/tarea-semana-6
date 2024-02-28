@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>Tienda de Árboles</title>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .navbar-brand {
+            font-size: 24px;
+        }
+        .navbar-nav .nav-link {
+            font-size: 18px;
+            color: #212529;
+        }
+        #main-header {
+            background-color: #20c997;
+        }
+        #main-header h1 {
+            font-size: 36px;
+            margin-top: 20px;
+        }
+        #listadoArboles {
+            margin-top: 20px;
+        }
+        #listadoArboles ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        #listadoArboles li {
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            background-color: #17a2b8;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header th:fragment="header" class="header">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="container">
+                <a th:href="@{/}" class="navbar-brand">Tienda de Árboles</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" th:href="@{/arbol/listado}">Nuestros Árboles</a></li>
+                        <!-- Otros enlaces de navegación si es necesario -->
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" th:href="@{/(lang=es)}">ES</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/(lang=en)}">EN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section id="main-header" class="text-center">
+            <div class="container">
+                <h1><i class="fas fa-tree"></i> Bienvenido a nuestra Tienda de Árboles</h1>
+            </div>
+        </section>
+    </header>
+
+    <section id="listadoArboles">
+        <div class="container">
+            <h2 class="text-center">Árboles Disponibles</h2>
+            <ul>
+                <li th:each="arbol : ${arboles}">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${arbol.nombre}"></h5>
+                                    <p class="card-text" th:text="${arbol.descripcion}"></p>
+                                    <span class="badge bg-success" th:if="${arbol.activo}">Disponible</span>
+                                    <span class="badge bg-danger" th:unless="${arbol.activo}">Agotado</span>
+                                    <!-- Otros campos del árbol si es necesario -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer th:fragment="footer" class="footer">
+        <div class="container">
+            <p class="lead">
+                &COPY; 2024 Tienda de Árboles
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
